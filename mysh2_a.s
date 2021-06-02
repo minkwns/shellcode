@@ -6,24 +6,24 @@ section .text
     one:
  	pop ebx
 	xor eax, eax
-	mov [ebx+12], al	; save 0x00 (1 byte) to memory at address ebx+12 = first *
-	mov [ebx+17], al	; save 0x00 (1 byte) to memory at address ebx+17 = second *
-	mov [ebx+22], al	; save 0x00 (1 byte) to memory at address ebx+22 = third *
-	mov [ebx+27], eax	; save 0x00 (4 bytes) to first ****
+	mov [ebx+12], al	; address ebx+12 = first *
+	mov [ebx+17], al	; address ebx+17 = second *
+	mov [ebx+22], al	; address ebx+22 = third *
+	mov [ebx+27], eax	; save 0x00 for null
 
-	mov [ebx+23],  ebx	; put /usr/bin/env command in arg0
+	mov [ebx+23],  ebx	; arg0 (/usr/bin/env)
 	
-	lea edx, [ebx+13]	; get the address of first env var
-	mov [ebx+31], edx	; load address of first env var to env0
+	lea edx, [ebx+13]	; address of first env variable
+	mov [ebx+31], edx	; address of first env0
 
-	lea edx, [ebx+18]	; get the address of second env var
-	mov [ebx+35], edx	; load the address of second argument to env1
+	lea edx, [ebx+18]	; address of second env variable
+	mov [ebx+35], edx	; address of second argument
 
-	mov [ebx+39], eax	; put null in last ****
+	mov [ebx+39], eax	; null for ****
 	xor edx, edx
 
-	lea ecx, [ebx+23]	; load the arguments From arg0
-	lea edx, [ebx+31]	; load the env variables from env0 to ****
+	lea ecx, [ebx+23]	; arg0
+	lea edx, [ebx+31]	; ****
 
 	mov al,  0x0b
 	int 0x80,
